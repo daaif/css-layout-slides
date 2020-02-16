@@ -1,0 +1,10 @@
+.container > img {
+  float: left;
+  margin-right: 1em;
+}
+.container > p {
+  text-align: justify;
+}
+.extra {
+  color: red;
+}

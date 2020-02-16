@@ -1,0 +1,27 @@
+.container {
+  margin: 100px;
+  border: 1px dashed gray;
+  width: 200px;
+  height: 200px;
+  background-color: #eee;
+}
+.box1,
+.box2 {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  box-shadow: 0 0 6px #000;
+}
+.box1 {
+  background-color: #f77;
+}
+.box2 {
+  background-color: #7f7;
+  top: 150px;
+  left: 150px;
+}
+.repere {
+  position: absolute;
+  left: 0;
+  top: 0;
+}

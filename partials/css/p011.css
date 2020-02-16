@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item {
+}
+.item3 {
+  background-color: #ccc;
+}
+.item5 {
+  background-color: #ccc;
+}
+.container {
+  border: 1px solid black;
+  margin: 10px;
+  min-height: 300px;
+}
+.item {
+  text-align: center;
+  font-size: 1.6em;
+  padding: 12px;
+  margin: 12px;
+  border: 1px solid green;
+}

@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  //flex-direction: row;
+  //flex-direction: row-reverse;
+  //flex-direction: column;
+  //flex-direction: column-reverse;
+}
+.item {
+}
+
+.item3 {
+}
+.item5 {
+}
+.container {
+  border: 1px solid black;
+  margin: 10px;
+  min-height: 300px;
+}
+.item {
+  text-align: center;
+  font-size: 1.6em;
+  padding: 12px;
+  margin: 12px;
+  border: 1px solid green;
+}

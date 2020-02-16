@@ -1,0 +1,16 @@
+.container {
+}
+.item {
+}
+.container {
+  border: 1px solid black;
+  margin: 10px;
+  min-height: 300px;
+}
+.item {
+  text-align: center;
+  font-size: 1.6em;
+  padding: 12px;
+  margin: 12px;
+  border: 1px solid orangered;
+}

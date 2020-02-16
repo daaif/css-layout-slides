@@ -1,0 +1,50 @@
+/* Begin Layout   */
+.row > [class*="col-"] {
+  float: left;
+  box-sizing: border-box;
+  padding: 2px;
+}
+.row::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.row > .col-1 {
+  width: 8.33%;
+}
+.row > .col-2 {
+  width: 16.66%;
+}
+.row > .col-3 {
+  width: 25%;
+}
+.row > .col-4 {
+  width: 33.33%;
+}
+.row > .col-6 {
+  width: 50%;
+}
+.row > .col-8 {
+  width: 66.66%;
+}
+.row > .col-12 {
+  width: 100%;
+}
+/* End layout */
+
+/* Begin content */
+#header,
+#sidebar,
+#content,
+#footer {
+  min-height: 60px;
+  border: 1px dotted gray;
+  font-size: 1.2em;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+}
+#sidebar,
+#content {
+  min-height: 260px;
+}

@@ -1,0 +1,34 @@
+<div class="container small">
+  <h3>Gérer la distribution sur l'<mark>axe principal</mark> (Main Axis)</h3>
+  <p>
+    Trois propriétés sont utilisées au niveau des <mark>éléments</mark> : 
+    <ul class="list-group">
+        <li class="list-group-item"><code>flex-grow: &lt;Nombre&gt; ;</code>
+            <span class="text-muted">/* définit comment l'élément va s'étendre */</span>
+           </li>
+        <li class="list-group-item"><code>flex-shrink: &lt;Nombre&gt; ;</code>
+            <span class="text-muted"
+              >/* définit comment l'élément va se rétrécir */</span
+            ></li>
+        <li class="list-group-item"><code>flex-basis: &lt;taille&gt; ;</code>
+            <span class="text-muted">/* définit la taille occupée par l'élément */</span
+            ></li>
+    </ul>
+  </p><p>
+    Ces trois attributs peuvent être donnés en un seul coup avec l'attribut
+    <code>flex</code> : 
+    <ul class="list-group">
+        <li class="list-group-item"><code>flex: 2 1 auto;</code></li>
+    </ul>
+    
+  </p>
+  <p>
+    Dans l'exemple précédent, la valeur de <code>flex-grow</code> est
+    <mark>2</mark>. Cet élément prendra deux (2) parts de l'espace libre pour
+    grandir.
+  </p>
+  <p>
+    <code>flex-basis</code> est défini à <mark>auto</mark>, le moteur de rendu
+    se basera sur la taille du contenu pour faire ses calculs.
+  </p>
+</div>

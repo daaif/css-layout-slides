@@ -1,0 +1,56 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 96vh;
+  font-size: 1.23em;
+  font-family: "Averia Sans Libre", cursive, "PT Sans Narrow", sans-serif;
+}
+code {
+  font-size: 0.9em;
+}
+.slides {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 6px;
+  height: 100%;
+  width: 100%;
+}
+.slide.example.hide,
+.slide.page.hide {
+  display: none;
+}
+.outerCode .CodeMirror,
+.page .CodeMirror {
+  height: auto;
+}
+.page h1 {
+  padding-top: 14px;
+  text-shadow: 0 0 2px #fff, 0 0 6px #00000099;
+  font-variant: small-caps;
+}
+.slide.example.small-js.current .js .CodeMirror,
+.slide.example.small-css.current .css .CodeMirror,
+.slide.example.small-html.current .html .CodeMirror {
+  font-size: 0.8em;
+}
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  padding-left: 20px;
+}
+.hover:hover {
+  transform: scale(1.1);
+  z-index: 1000;
+  transition: 300ms;
+}
+.hover > .resp {
+  display: none;
+}
+.hover:hover > .resp {
+  display: inline;
+}
+
+/* boostrap overrides */
+.list-group-item {
+  padding: 0.45rem 1.25rem;
+}

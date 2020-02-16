@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.item {
+}
+.item3 {
+  background-color: #ccc;
+}
+.container {
+  border: 1px solid black;
+  margin: 10px;
+  min-height: 300px;
+}
+.item {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 12px;
+  margin: 12px 4px;
+  border: 1px solid green;
+}

@@ -1,0 +1,8 @@
+.outer {
+  border: 1px solid rebeccapurple;
+}
+.inner {
+  border: 1px solid red;
+  margin: 8px;
+  padding: 8px;
+}

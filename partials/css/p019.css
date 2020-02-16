@@ -1,0 +1,28 @@
+.container {
+  margin: 30px auto;
+  border: 1px dashed gray;
+  width: 240px;
+  height: 240px;
+  background-color: #eee;
+}
+.box1,
+.box2,
+.box3 {
+  position: relative;
+  height: 80px;
+  width: 80px;
+}
+.box1 {
+  background-color: #f77;
+  /* left: 40px; */
+  /* top: 40px; */
+}
+.box2 {
+  background-color: #7f7;
+  /* left: 80px; */
+}
+.box3 {
+  background-color: #77f;
+  /* left: 120px; */
+  /* top: -40px; */
+}

@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <br />
+  <h2>Dispositions <code>bloc</code> et <code>inline</code></h2>
+  <p>
+    La balise <code>div.outer</code> contient cinq balises
+    <code>div.inner</code>.
+    <br />
+    Les balise <code>div</code> sont par défaut en mode
+    <code>bloc</code>
+  </p>
+  <ol class="small">
+    <li>
+      Changer le mode des balises <code>div.inner</code> en mettant l'attribut
+      <code>display: inline</code><br />
+      <small class="text-muted hover"
+        >Que constatez-vous ?
+        <span class="resp text-success"
+          >Les boites se disposent en flux</span
+        ></small
+      >
+    </li>
+    <li>
+      Modifier l'attribut <code>width</code> des balises
+      <code>div.inner</code> en le fixant à <code>100px</code> <br />
+      <small class="text-muted hover"
+        >Que constatez-vous ?
+        <span class="resp text-success"
+          >Les boites ne peuvent pas changer de largeur</span
+        ></small
+      >
+    </li>
+    <li>
+      Remettre l'attribut <code>display: block</code><br />
+      <small class="text-muted hover"
+        >Que constatez-vous ?
+        <span class="resp text-success"
+          >Les boites changent de largeur mais l'espace à droite est
+          inutilisable</span
+        ></small
+      >
+    </li>
+    <li>
+      Pour center les boites <code>div.inner</code> on met les attributs
+      <code>margin-left: auto</code> et <code>margin-right: auto</code><br />
+      <small class="text-muted hover"
+        >Que constatez-vous ?
+        <span class="resp text-success">Ca marche !</span></small
+      >
+    </li>
+    <li>
+      Et si on changeait la hauteur du conteneur <code>dic.outer</code> en
+      mettant la valeur <code>height: 400px</code><br />
+      <small class="text-muted hover"
+        >Pourrait-on centrer les boites internes verticalement ?
+        <span class="resp text-success">A ce state, pas possible</span></small
+      >
+    </li>
+  </ol>
+</div>
