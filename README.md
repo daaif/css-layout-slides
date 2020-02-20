@@ -11,11 +11,7 @@ Apprendre à utiliser les différentes dispositions CSS en se basant sur les tec
 > npm run serve
 ```
 
-<<<<<<< HEAD
 Ouvrir le navigateur à : [http://localhost:8000](http://localhost:8000/) {target="\_blank"}
-=======
-Ouvrir le navigateur à : [http://localhost:8000](http://localhost:8000/ target="\_blank")
->>>>>>> f9600f1732ada14d90504b6a061db4c32e61b698
 
 # css-layout-slides
 
