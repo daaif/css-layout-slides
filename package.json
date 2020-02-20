@@ -1,14 +1,20 @@
 {
-  "name": "slides",
+  "name": "css-layouts-slides",
   "version": "1.1.0",
-  "description": "",
+  "description": "CSS layouts",
   "main": "index.js",
   "scripts": {
     "serve": "ws --spa index.html"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "CSS",
+    "Layouts",
+    "Slides",
+    "Flexbox",
+    "Css position"
+  ],
+  "author": "Abdelaziz DAAIF",
+  "license": "MIT",
   "devDependencies": {
     "ws": "^7.0.0"
   },
