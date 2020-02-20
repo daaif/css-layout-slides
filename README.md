@@ -2,7 +2,7 @@
 
 Apprendre à utiliser les différentes dispositions CSS en se basant sur les techniques du flottement, le modèle Flexbox et le positionnement.
 
-# run it locally
+# Exécuter la présentation en local et l'adapter à vos besoins
 
 ```console
 > git clone https://github.com/daaif/css-layout-slides.git
@@ -11,7 +11,7 @@ Apprendre à utiliser les différentes dispositions CSS en se basant sur les tec
 > npm run serve
 ```
 
-Ouvrir le navigateur à : [http://localhost:8000](http://localhost:8000)
+Ouvrir le navigateur à : [http://localhost:8000](http://localhost:8000/ target="\_blank")
 
 # css-layout-slides
 
