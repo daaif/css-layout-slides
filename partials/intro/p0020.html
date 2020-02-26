@@ -1,0 +1,27 @@
+<div class="container small">
+  <h2>Tailles des polices</h2>
+  <p>
+    Pour garder la cohérence globale du site, les tailles des polices sont
+    mesurées en <mark>em</mark> (relative à la taille de la police du parent),
+    ou en <mark>rem</mark> (relative à la taille de la racine <mark>html</mark>)
+  </p>
+  <p>
+    <textarea class="myCode">
+  html {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 2em; /* Taille deux fois plus grande c-à-d 28px */ 
+  }
+  article {
+    font-size: 1.2em;
+  }
+  article p {
+    font-size: 1.2em; /* Taille = 1.2 x 1.2 x 14px */
+  }
+  article cite {
+    font-size: 1rem;  /* 1 x 14px */
+  }
+    </textarea>
+  </p>
+</div>

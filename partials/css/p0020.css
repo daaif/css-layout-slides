@@ -1,0 +1,17 @@
+html {
+  font-size: 14px;
+}
+.container {
+  font-size: 1.2em;
+}
+
+.container p {
+  font-size: 1.2em;
+}
+.container p .big {
+  font-size: 1.4em;
+}
+.container-extra {
+}
+.container-extra p {
+}
