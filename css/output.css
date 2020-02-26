@@ -4,6 +4,10 @@ body {
   padding: 10px;
   box-sizing: border-box;
 }
+body {
+  background: url(./../images/background_50_solid.png),
+    url(./../images/background_10_solid.png);
+}
 .console {
   border: none;
   border-top: 10px solid #ddd;

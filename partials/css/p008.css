@@ -48,3 +48,6 @@
 #content {
   min-height: 260px;
 }
+body {
+  background-image: none !important;
+}
