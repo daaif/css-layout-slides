@@ -1,4 +1,4 @@
-(async function() {
+(async function () {
   const config = await fetch("config.json").then(resp => resp.json());
   const templates = await fetch("templates.html").then(resp => resp.text());
   document.querySelector("#templates").innerHTML = templates;
@@ -20,11 +20,11 @@
 
   sections.forEach(slide => {
     const type = slide.classList.contains("example") ? "example" : "page";
-    const { intro, html, css, js } = slide.dataset;
-    slides.push({ slide, type, intro, html, css, js, isLoaded: false });
+    const { page, intro, html, css, js } = slide.dataset;
+    slides.push({ slide, type, page, intro, html, css, js, isLoaded: false });
   });
 
-  grads.addEventListener("click", function(evt) {
+  grads.addEventListener("click", function (evt) {
     const position = parseInt((slides.length * evt.clientX) / this.clientWidth);
     location.hash = position;
   });
@@ -57,7 +57,7 @@
   //     tooltip.style.top = bcr.height + 'px'
 
   // }
-  window.addEventListener("hashchange", function(evt) {
+  window.addEventListener("hashchange", function (evt) {
     const hash = parseInt(location.hash.substr(1));
     if (hash >= 0) navigate(hash);
   });
@@ -100,7 +100,7 @@
   function loadSlide(slideObject, hash) {
     if (slideObject.type === "page") {
       const request = new Request(
-        config.partials["html"] + slideObject.html + ".html"
+        config.partials["page"] + slideObject.page + ".html"
       );
       fetch(request)
         .then(response => response.text())
@@ -154,15 +154,15 @@
       highlight(containerIntro);
       containerHtml.innerHTML = html;
       slideObject.htmlEditor = CodeMirror.fromTextArea(containerHtml, {
-        lineNumbers: true
+        lineNumbers: true,
       });
       containerCss.innerHTML = css;
       slideObject.cssEditor = CodeMirror.fromTextArea(containerCss, {
-        lineNumbers: true
+        lineNumbers: true,
       });
       containerJs.innerHTML = js;
       slideObject.jsEditor = CodeMirror.fromTextArea(containerJs, {
-        lineNumbers: true
+        lineNumbers: true,
       });
 
       const type = intro ? "intro" : "html";
@@ -180,7 +180,7 @@
 
   function attachNavigationEvents() {
     let pageX0 = -1;
-    window.addEventListener("keydown", function(evt) {
+    window.addEventListener("keydown", function (evt) {
       //   console.log(evt.keyCode);
       const page = document
         .querySelector(".current")
@@ -216,12 +216,12 @@
           showNextTab();
       }
     });
-    window.addEventListener("touchstart", function(evt) {
+    window.addEventListener("touchstart", function (evt) {
       evt.stopImmediatePropagation();
       pageX0 = evt.touches[0].pageX;
     });
 
-    window.addEventListener("touchend", function(evt) {
+    window.addEventListener("touchend", function (evt) {
       if (pageX0 === -1) return;
       const delta = evt.changedTouches[0].pageX - pageX0;
       if (delta > 60) location.hash = current - 1;
@@ -282,14 +282,14 @@
     const closeButton = poppup.querySelector(".close");
     const addLibsButton = poppup.querySelector(".addlibs");
 
-    navbarCode.addEventListener("click", function(evt) {
+    navbarCode.addEventListener("click", function (evt) {
       evt.preventDefault();
       if (evt.target !== this) {
         const type = evt.target.innerText.toLowerCase();
         showEditor(slideObject.slide, type);
       }
     });
-    navbarRenderer.addEventListener("click", function(evt) {
+    navbarRenderer.addEventListener("click", function (evt) {
       evt.preventDefault();
       evt.stopPropagation();
       if (evt.target === this) return;
@@ -307,7 +307,7 @@
       }
     });
     closeButton.addEventListener("click", closePoppup);
-    addLibsButton.addEventListener("click", function() {
+    addLibsButton.addEventListener("click", function () {
       const checkboxes = poppup.querySelectorAll(".library input.sel");
       const globals = poppup.querySelectorAll(".library input.global");
 
@@ -408,7 +408,6 @@
     const win = document.createElement("iframe");
     win.setAttribute("frameborder", 0);
     containerRenderer.appendChild(win);
-    const doc = win.contentDocument;
 
     attachLibraries(slideObject);
     function attachLibraries(slideObject) {
@@ -416,28 +415,71 @@
       const promises = [];
       slideObject.libraries.forEach(lib => {
         if (lib.selected) {
-          const script = doc.createElement("script");
+          const script = document.createElement("script");
           script.setAttribute("src", lib.url);
-          doc.head.appendChild(script);
+          if (lib.crossorigin)
+            script.setAttribute('crossorigin', '')
+          setTimeout(_ => win.contentWindow.document.head.appendChild(script), 0)
           promises.push(
             new Promise(resolve => {
               script.onload = () => {
-                resolve(true);
+                resolve(lib.name);
               };
             })
           );
         }
       });
-      Promise.all(promises).then(function() {
+      Promise.all(promises).then(function (scripts) {
+        scripts.forEach(s => console.log(s));
+        console.log(win.contentWindow.document.body);
         const style = document.createElement("style");
         style.classList.add("added");
         style.innerText = slideObject.cssEditor.getValue();
         const script = document.createElement("script");
+        if (config.babel)
+          script.setAttribute("type", "text/babel");
         script.classList.add("added");
         script.textContent = slideObject.jsEditor.getValue("\n");
-        doc.head.appendChild(style);
-        doc.body.innerHTML = slideObject.htmlEditor.getValue();
-        doc.body.appendChild(script);
+        const link = document.createElement('link');
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("href", "../css/output.css");
+        setTimeout(_ => {
+          win.contentWindow.document.body.innerHTML = slideObject.htmlEditor.getValue();
+          win.contentWindow.document.head.appendChild(style);
+          win.contentWindow.document.body.appendChild(script);
+          win.contentWindow.document.dispatchEvent(new Event('DOMContentLoaded', {
+            bubbles: true,
+            cancelable: true
+          }));
+          win.contentWindow.document.head.appendChild(link);
+        }, 0)
+        // const attachedConsole = document.createElement('pre');
+        // attachedConsole.classList.add('console');
+        // doc.body.appendChild(attachedConsole);
+        // console.old = console.log;
+        // console.log = function () {
+        //   var output = "", arg, i;
+
+        //   for (i = 0; i < arguments.length; i++) {
+        //     arg = arguments[i];
+        //     output += "<span class=\"log-" + (typeof arg) + "\">";
+
+        //     if (
+        //       typeof arg === "object" &&
+        //       typeof JSON === "object" &&
+        //       typeof JSON.stringify === "function"
+        //     ) {
+        //       output += JSON.stringify(arg);
+        //     } else {
+        //       output += arg;
+        //     }
+
+        //     output += "</span>";
+        //   }
+
+        //   attachedConsole.innerHTML += output + "<br>";
+        //   console.old.apply(undefined, arguments);
+        // };
       });
     }
   }
@@ -456,13 +498,14 @@
     if (slideObject.libraries === undefined) {
       slideObject.libraries = [];
       config.libraries.forEach(lib => {
-        const { name, url, version, global } = lib;
+        const { name, url, version, global, crossorigin } = lib;
         slideObject.libraries.push({
           selected: global,
           name,
           url,
           version,
-          global
+          global,
+          crossorigin
         });
       });
       if (!librariesLoaded) {
@@ -507,6 +550,6 @@
     });
   }
   setTimeout(resizeGraduations, 30);
-  // Allez au premier slide.
+  // ALlez au premier slide.
   location.hash = 0;
 })();
