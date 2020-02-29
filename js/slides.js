@@ -1,3 +1,4 @@
+let player;
 (async function () {
   const config = await fetch("config.json").then(resp => resp.json());
   const templates = await fetch("templates.html").then(resp => resp.text());
@@ -5,65 +6,89 @@
   let librariesLoaded = false;
   const progress = document.querySelector("#progress .progress-bar");
   const numSlides = document.querySelector("#numSlides");
+  const ytBtn = document.querySelector("#yt");
+  const ytIframe = document.querySelector("#ytIframe");
+  console.log(player);
+  const ytOverlay = document.querySelector("#ytOverlay");
+  ytOverlay.addEventListener("click", function (evt) {
+    evt.stopPropagation();
+    ytBtn.click();
+  });
+  ytBtn.addEventListener("click", function (evt) {
+    evt.preventDefault();
+    if (this.classList.contains('yt-close')) {
+      ytIframe.style.display = "none";
+      ytBtn.innerHTML = "<i class='fab fa-youtube'></i>";
+      ytIframe.setAttribute("src", "");
+      ytBtn.classList.remove('yt-close');
+      ytOverlay.style.display = "none";
+    } else {
+      const slide = slides[current];
+      console.log(slide);
+      const url = "//www.youtube.com/embed/"
+        + slide.ytid
+        + "?autoplay=1&rel=0&start="
+        + slide.begin
+        + ((slide.end) ? "&end=" + slide.end : "");
+      ytIframe.setAttribute("src", url);
+
+      ytBtn.classList.add('yt-close');
+      ytBtn.innerHTML = "<i class='far fa-window-close'></i>";
+      ytIframe.style.display = "";
+      // ytOverlay.style.display = "";
+      if (slide.begin && slide.end) {
+        setTimeout(() => {
+          this.click();
+        }, (slide.end * 1 - slide.begin * 1) * 1000)
+      }
+
+    }
+  })
   const poppup = document.querySelector(".outer");
-  // const tooltip = document.querySelector('#tooltip')
   const librariesContainer = poppup.querySelector(".libraries");
   const initialTemplate = poppup.querySelector(".libraries .library");
   const grads = document.querySelector("#grad");
   const cachedTemplate = initialTemplate.cloneNode(true);
   cachedTemplate.style.display = "";
   initialTemplate.remove();
-  const sections = document.querySelectorAll(".slides .slide");
+  const sections = document.querySelectorAll(".slides > .slide");
   const slides = [];
   let current = 0,
     previous = 0;
-
-  sections.forEach(slide => {
+  let ytidDefault;
+  sections.forEach((slide, index) => {
     const type = slide.classList.contains("example") ? "example" : "page";
-    const { page, intro, html, css, js } = slide.dataset;
-    slides.push({ slide, type, page, intro, html, css, js, isLoaded: false });
+    const { page, intro, html, css, js, ytid, begin, end } = slide.dataset;
+    ytidDefault = ytid || ytidDefault;
+    slides.push({
+      slide,
+      type,
+      page,
+      intro,
+      html,
+      css,
+      js,
+      ytid: ytidDefault,
+      begin,
+      end,
+      isLoaded: false
+    });
   });
 
   grads.addEventListener("click", function (evt) {
     const position = parseInt((slides.length * evt.clientX) / this.clientWidth);
     location.hash = position;
   });
-  // grads.addEventListener('mouseover', function(evt){
-  //     const num = parseInt(evt.target.innerText)
-  //     if(num >= 0) {
-  //         if (slides[num].tooltip) {
-  //             showTooltip(evt.target, slides[num].title)
-  //         } else {
-  //             const type = slides[0].slide.classList.contains('page') ? 'html' : 'intro'
-  //             const url = '/partials/' + type + '/' +
-  //             slides[num][type] + '.html'
-  //             fetch(url).then(resp => resp.text())
-  //             .then(text => {
-  //                 const reg = /(<h[^>]+>([^<]+)<\/h)/im
-  //                 const matches = reg.exec(text)
-  //                 if(matches && matches[2]) {
-  //                     showTooltip(evt.target, matches[2])
-  //                     slides[num].title = text
-  //                 }
-  //                 slides[num]['tooltip'] = true
-  //             })
-  //         }
-  //     }
-  // })
-  // function showTooltip(elm, text) {
-  //     tooltip.innerText = text
-  //     const bcr = elm.getBoundingClientRect()
-  //     tooltip.style.left = bcr.left + 'px'
-  //     tooltip.style.top = bcr.height + 'px'
 
-  // }
   window.addEventListener("hashchange", function (evt) {
     const hash = parseInt(location.hash.substr(1));
     if (hash >= 0) navigate(hash);
   });
   attachNavigationEvents();
-  // Ne pas appeller directement EventHandler
+
   function navigate(hash = 0) {
+    if (ytBtn.classList.contains('yt-close'))
+      ytBtn.click();
     hash = parseInt(hash);
     hash = hash < 0 ? 0 : hash >= slides.length ? slides.length - 1 : hash;
     const direction = current > hash ? "left" : "right";
@@ -96,6 +121,10 @@
     } else {
       if (slide.type === "example") render(slide);
     }
+    slide.begin ?
+      ytBtn.classList.remove('d-none') :
+      ytBtn.classList.add('d-none');
+    ytIframe.style.display = "none";
   }
   function loadSlide(slideObject, hash) {
     if (slideObject.type === "page") {
@@ -113,7 +142,6 @@
       slideObject.slide.innerHTML = template.innerHTML;
       attachEvents(slideObject);
       resizeSlide(slideObject);
-
       fetchContent(slideObject);
     }
   }
@@ -549,7 +577,8 @@
       grads.append(grad);
     });
   }
+
   setTimeout(resizeGraduations, 30);
-  // ALlez au premier slide.
+  // Allez au premier slide.
   location.hash = 0;
 })();

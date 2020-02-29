@@ -41,3 +41,6 @@
   text-align: center;
   padding: 25px;
 }
+body {
+  background-image: none !important;
+}
